@@ -20,7 +20,10 @@ router.post(
   applicationsController.createApplication
 );
 
-router.patch('/:jid', applicationsController.updateApplication);
+router.patch('/:jid', [
+  check('company_name').not().isEmpty(),
+  check('job_title').not().isEmpty()
+], applicationsController.updateApplication);
 
 router.delete('/:jid', applicationsController.deleteApplication);
 

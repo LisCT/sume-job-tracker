@@ -90,7 +90,7 @@ const getApplicationsByUserId= (req, res, next) => {
 const createApplication = (req, res, next) => {
   const error = validationResult(req);
   if(!error.isEmpty()){
-    throw new HttpError('', 422)
+    throw new HttpError('Invalid input passed, please check your data', 422)
   }
 
   const { creator, company_name, job_title } = req.body;
@@ -107,6 +107,11 @@ const createApplication = (req, res, next) => {
 }
 
 const updateApplication = (req, res, next) => {
+  const error = validationResult(req);
+  if(!error.isEmpty()){
+    throw new HttpError('Invalid input passed, please check your data', 422)
+  }
+
   const { company_name, job_title } = req.body;
   const jobId = req.params.jid;
 
