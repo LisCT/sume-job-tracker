@@ -127,6 +127,10 @@ const updateApplication = (req, res, next) => {
 
 const deleteApplication = (req, res, next) => {
   const jobId = req.params.jid;
+  if(!DUMMY_JOBS.find(job => job.id === jobId)){
+    throw new HttpError('Could not find a job for that id', 404);
+  }
+
   DUMMY_JOBS = DUMMY_JOBS.filter(job => job.id !== jobId);
   res.status(200).json({message: 'Job Application Deleted.'});
 }
